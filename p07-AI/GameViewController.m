@@ -8,6 +8,7 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
+#import "Connect4.h"
 
 @implementation SKScene (Unarchive)
 
@@ -30,24 +31,58 @@
 
 @implementation GameViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+-(void)bullshit {
+    NSLog(@"PRESSED");
+}
 
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
-    /* Sprite Kit applies additional optimizations to improve rendering performance */
-    skView.ignoresSiblingOrder = YES;
-    
-    // Create and configure the scene.
-    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
+    if (!skView.scene) {
+        skView.showsFPS = YES;
+        skView.showsNodeCount = YES;
+        
+        // Create and configure the scene.
+        scene = [GameScene unarchiveFromFile:@"GameScene"];
+        scene = [GameScene sceneWithSize:skView.bounds.size];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        scene.viewController = self;
+        
+        // Present the scene.
+        [skView presentScene:scene];
+        
+        // Initialize Connect4 engine
+        connect4 = [[Connect4 alloc] init];
+        [connect4 initConnect4Board];
+    }
 }
+
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+//    
+//    // Configure the view.
+//    SKView * skView = (SKView *)self.view;
+//    skView.showsFPS = YES;
+//    skView.showsNodeCount = YES;
+//    /* Sprite Kit applies additional optimizations to improve rendering performance */
+//    skView.ignoresSiblingOrder = YES;
+//    
+//    // Create and configure the scene.
+//    scene = [GameScene unarchiveFromFile:@"GameScene"];
+//    scene.scaleMode = SKSceneScaleModeAspectFill;
+//    
+//    // Present the scene.
+//    scene.viewController = self;
+//    [skView presentScene:scene];
+//    
+//    // Initialize Connect4 engine
+//    connect4 = [[Connect4 alloc] init];
+//    [connect4 initConnect4Board];
+//}
 
 - (BOOL)shouldAutorotate
 {
@@ -57,7 +92,8 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
+        //return UIInterfaceOrientationMaskAllButUpsideDown;
+        return UIInterfaceOrientationMaskLandscape;
     } else {
         return UIInterfaceOrientationMaskAll;
     }

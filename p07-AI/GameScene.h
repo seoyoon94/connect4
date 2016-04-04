@@ -7,7 +7,13 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "GameViewController.h"
 
 @interface GameScene : SKScene
+{
+    int numColumns;
+    float screenWidth, screenHeight;
+}
 
+@property GameViewController *viewController;
 @end
