@@ -18,11 +18,11 @@
     };
     
     NSMutableArray *gameBoard;
-    NSMutableArray *numPiecesInColumn;
 }
 
 @property const int numRows;
 @property const int numColumns;
+@property NSMutableArray* numPiecesInColumn;
 
 -(void) initConnect4Board;
 

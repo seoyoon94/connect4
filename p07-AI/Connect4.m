@@ -12,6 +12,7 @@
 
 @synthesize numColumns;
 @synthesize numRows;
+@synthesize numPiecesInColumn;
 
 -(void) initConnect4Board {
     [self setNumColumns:7];

@@ -21,13 +21,20 @@
     NSLog(@"Screen width: %f", screenWidth);
     NSLog(@"Screen height: %f", screenHeight);
     
-//    UIButton *testButton = [[UIButton alloc]initWithFrame:CGRectMake(0, screenHeight - 50, 50, 50)];
-//    UIImage *moveLeftImage = [UIImage imageNamed:@"concave button.png"];
-//    [testButton setImage:moveLeftImage forState:UIControlStateNormal];
-//    [testButton addTarget:self action:@selector(NULL) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:testButton];
-    
+    int tempTag = 0;
     for(int i = 0; i < numColumns; i++){
+        //Create buttons
+        UIButton *testButton = [[UIButton alloc]initWithFrame:CGRectMake(0, screenHeight - 50, 50, 50)];
+        //Set up tags so the View Controller can access the column with the tag number
+        testButton.tag = tempTag;
+        tempTag++;
+        UIImage *buttonImage = [UIImage imageNamed:@"concave button.png"];
+        [testButton setImage:buttonImage forState:UIControlStateNormal];
+        //Once button is pressed, call the buttonPressed method from the View Controller
+        [testButton addTarget:viewController action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:testButton];
+        
+        //Create game board
         SKSpriteNode *column = [[SKSpriteNode alloc] initWithImageNamed:@"connect4.png"];
         float aspectRatio = screenWidth / screenHeight;
         column.size = CGSizeMake(screenWidth / 9, (screenWidth / 9) * aspectRatio);

@@ -17,4 +17,6 @@
     Connect4 *connect4;
 }
 
+- (void)buttonPressed:(UIButton *)sender;
+
 @end

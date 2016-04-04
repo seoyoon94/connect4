@@ -92,7 +92,6 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        //return UIInterfaceOrientationMaskAllButUpsideDown;
         return UIInterfaceOrientationMaskLandscape;
     } else {
         return UIInterfaceOrientationMaskAll;
@@ -107,6 +106,11 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (void)buttonPressed:(UIButton *)sender{
+    if((int)connect4.numPiecesInColumn[sender.tag] != connect4.numRows){
+    }
 }
 
 @end
