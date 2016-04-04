@@ -10,6 +10,9 @@
 		832E71011CB2D2B100CEC5EB /* concave button.png in Resources */ = {isa = PBXBuildFile; fileRef = 832E70FE1CB2D2B100CEC5EB /* concave button.png */; };
 		832E71101CB2E68200CEC5EB /* Connect4.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E710E1CB2E68200CEC5EB /* Connect4.m */; };
 		832E71121CB2E89300CEC5EB /* connect4.png in Resources */ = {isa = PBXBuildFile; fileRef = 832E71111CB2E89300CEC5EB /* connect4.png */; };
+		832E71141CB32D7E00CEC5EB /* connect4board.png in Resources */ = {isa = PBXBuildFile; fileRef = 832E71131CB32D7E00CEC5EB /* connect4board.png */; };
+		832E71161CB32DFD00CEC5EB /* connect4red.png in Resources */ = {isa = PBXBuildFile; fileRef = 832E71151CB32DFD00CEC5EB /* connect4red.png */; };
+		832E71181CB32E0400CEC5EB /* connect4black.png in Resources */ = {isa = PBXBuildFile; fileRef = 832E71171CB32E0400CEC5EB /* connect4black.png */; };
 		83BCACB51CA1FF5F00378E8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BCACB41CA1FF5F00378E8E /* main.m */; };
 		83BCACB81CA1FF5F00378E8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BCACB71CA1FF5F00378E8E /* AppDelegate.m */; };
 		83BCACBB1CA1FF5F00378E8E /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BCACBA1CA1FF5F00378E8E /* GameScene.m */; };
@@ -44,6 +47,9 @@
 		832E710E1CB2E68200CEC5EB /* Connect4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connect4.m; sourceTree = "<group>"; };
 		832E710F1CB2E68200CEC5EB /* Connect4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connect4.h; sourceTree = "<group>"; };
 		832E71111CB2E89300CEC5EB /* connect4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect4.png; sourceTree = "<group>"; };
+		832E71131CB32D7E00CEC5EB /* connect4board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect4board.png; sourceTree = "<group>"; };
+		832E71151CB32DFD00CEC5EB /* connect4red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect4red.png; sourceTree = "<group>"; };
+		832E71171CB32E0400CEC5EB /* connect4black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect4black.png; sourceTree = "<group>"; };
 		83BCACB01CA1FF5F00378E8E /* p07-AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "p07-AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BCACB41CA1FF5F00378E8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83BCACB61CA1FF5F00378E8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -134,7 +140,10 @@
 		83BCACB31CA1FF5F00378E8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				832E71171CB32E0400CEC5EB /* connect4black.png */,
+				832E71131CB32D7E00CEC5EB /* connect4board.png */,
 				832E71111CB2E89300CEC5EB /* connect4.png */,
+				832E71151CB32DFD00CEC5EB /* connect4red.png */,
 				832E70FE1CB2D2B100CEC5EB /* concave button.png */,
 				83BCACB41CA1FF5F00378E8E /* main.m */,
 			);
@@ -262,8 +271,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				832E71141CB32D7E00CEC5EB /* connect4board.png in Resources */,
+				832E71181CB32E0400CEC5EB /* connect4black.png in Resources */,
 				83BCACBD1CA1FF5F00378E8E /* GameScene.sks in Resources */,
 				83BCACC81CA1FF5F00378E8E /* LaunchScreen.storyboard in Resources */,
+				832E71161CB32DFD00CEC5EB /* connect4red.png in Resources */,
 				83BCACC51CA1FF5F00378E8E /* Assets.xcassets in Resources */,
 				832E71121CB2E89300CEC5EB /* connect4.png in Resources */,
 				832E71011CB2D2B100CEC5EB /* concave button.png in Resources */,

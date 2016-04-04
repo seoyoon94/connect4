@@ -18,6 +18,7 @@
     [self setNumColumns:7];
     [self setNumRows:6];
     
+    currentColor = RED;
     //Keep track of the number of pieces in each column. Initialize to 0.
     numPiecesInColumn = [[NSMutableArray alloc] initWithCapacity:numColumns];
     for(int i = 0; i < numColumns; i++){
@@ -39,6 +40,18 @@
     }
     
 
+}
+
+-(void) addPieceToBoard:(int)index{
+    NSMutableArray *columns = [gameBoard objectAtIndex:[numPiecesInColumn[index] intValue]];
+    columns[index] = [NSNumber numberWithInt:currentColor];
+    numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
+    if(currentColor == RED){
+        currentColor = BLACK;
+    }
+    else{
+        currentColor = RED;
+    }
 }
 
 @end

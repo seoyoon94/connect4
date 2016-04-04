@@ -17,6 +17,7 @@
         EMPTY = 2
     };
     
+    enum SlotColor currentColor;
     NSMutableArray *gameBoard;
 }
 
@@ -25,5 +26,6 @@
 @property NSMutableArray* numPiecesInColumn;
 
 -(void) initConnect4Board;
+-(void) addPieceToBoard:(int)index;
 
 @end

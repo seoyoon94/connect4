@@ -46,7 +46,7 @@
         skView.showsNodeCount = YES;
         
         // Create and configure the scene.
-        scene = [GameScene unarchiveFromFile:@"GameScene"];
+        //scene = [GameScene unarchiveFromFile:@"GameScene"];
         scene = [GameScene sceneWithSize:skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         scene.viewController = self;
@@ -92,7 +92,7 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationMaskLandscape;
+        return UIInterfaceOrientationMaskPortrait;
     } else {
         return UIInterfaceOrientationMaskAll;
     }
@@ -110,6 +110,7 @@
 
 - (void)buttonPressed:(UIButton *)sender{
     if((int)connect4.numPiecesInColumn[sender.tag] != connect4.numRows){
+        [connect4 addPieceToBoard:(int)sender.tag];
     }
 }
 
