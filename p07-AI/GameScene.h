@@ -19,7 +19,7 @@
 }
 
 -(void) insertPieceInView:(int)column
-                   row:(int)row;
+                    row:(int)row;
 
 @property GameViewController *viewController;
 @end
