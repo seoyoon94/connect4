@@ -8,7 +8,7 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
-#import "Connect4.h"
+
 
 @implementation SKScene (Unarchive)
 
@@ -53,6 +53,7 @@
         // Initialize Connect4 engine
         connect4 = [[Connect4 alloc] init];
         [connect4 initConnect4Board];
+        connect4.delegate = self;
     }
 }
 
@@ -85,6 +86,11 @@
         [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue]];
         [connect4 addPieceToBoard:(int)sender.tag];
     }
+}
+
+- (void)gameDidEnd:(Connect4 *)connect4{
+    [self->connect4 clearBoard];
+    [scene clearBoard];
 }
 
 @end

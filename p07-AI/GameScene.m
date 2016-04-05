@@ -61,9 +61,16 @@
 
 -(void)insertPieceInView:(int)column row:(int)row {
     SKSpriteNode *newPiece = [[SKSpriteNode alloc] initWithImageNamed:@"connect4red.png"];
+    newPiece.name = @"Red Piece";
     newPiece.size = CGSizeMake(buttonWidth, buttonHeight);
     newPiece.position = CGPointMake(boardBeginX + (column * buttonWidth), boardBeginY + (row * buttonWidth));
     [self addChild:newPiece];
+}
+
+-(void)clearBoard{
+    [self enumerateChildNodesWithName:@"//Red Piece" usingBlock:^(SKNode *node, BOOL *stop){
+        [node removeFromParent];
+    }];
 }
 
 @end

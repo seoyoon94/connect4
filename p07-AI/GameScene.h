@@ -21,5 +21,7 @@
 -(void) insertPieceInView:(int)column
                     row:(int)row;
 
+-(void) clearBoard;
+
 @property GameViewController *viewController;
 @end

@@ -15,6 +15,7 @@
 @synthesize numPiecesInColumn;
 @synthesize currentNumPieces;
 @synthesize maxNumPieces;
+@synthesize delegate;
 
 -(void) initConnect4Board {
     [self setNumColumns:7];
@@ -49,7 +50,7 @@
     gameBoard[rowIndex][index] = [NSNumber numberWithInt:currentColor];
     numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
     if([self gameWon]){
-        NSLog(@"Hello");
+        [delegate gameDidEnd:self];
     }
     if(currentColor == RED){
         currentColor = BLACK;
@@ -123,6 +124,18 @@
         return true;
     }
     return false;
+}
+
+-(void) clearBoard{
+    for(int i = 0; i < numRows; i++){
+        for(int j = 0; j < numColumns; j++){
+            gameBoard[i][j] = [NSNumber numberWithInt:EMPTY];
+        }
+    }
+    
+    for(int i = 0; i < numColumns; i++){
+        numPiecesInColumn[i] = [NSNumber numberWithInt:0];
+    }
 }
 
 @end

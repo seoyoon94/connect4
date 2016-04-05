@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "GameViewController.h"
 
+@class Connect4;
+
+@protocol Connect4Delegate
+
+-(void)gameDidEnd:(Connect4 *)connect4;
+
+@end
+
 @interface Connect4 : NSObject
 {
     NS_ENUM(NSInteger, SlotColor){
@@ -33,8 +41,10 @@
 @property const int maxNumPieces;
 @property int currentNumPieces;
 @property NSMutableArray* numPiecesInColumn;
+@property (assign, nonatomic) id delegate;
 
 -(void) initConnect4Board;
 -(void) addPieceToBoard:(int)index;
+-(void) clearBoard;
 
 @end
