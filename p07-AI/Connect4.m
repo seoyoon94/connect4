@@ -38,8 +38,6 @@
         
         [gameBoard addObject:row];
     }
-    
-
 }
 
 -(void) addPieceToBoard:(int)index{

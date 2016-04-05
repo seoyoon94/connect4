@@ -109,7 +109,8 @@
 }
 
 - (void)buttonPressed:(UIButton *)sender{
-    if((int)connect4.numPiecesInColumn[sender.tag] != connect4.numRows){
+    if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
+        [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue]];
         [connect4 addPieceToBoard:(int)sender.tag];
     }
 }
