@@ -61,7 +61,7 @@
 
 -(bool) gameWon{
     bool retVal = false;
-    NSMutableArray *directionList = [[NSMutableArray alloc] init];
+    NSMutableArray *directionList = [[NSMutableArray alloc] initWithCapacity:4];
     [directionList addObject:[NSNumber numberWithInt:RIGHT]];
     [directionList addObject:[NSNumber numberWithInt:UP]];
     [directionList addObject:[NSNumber numberWithInt:UP_LEFT]];
@@ -70,10 +70,9 @@
     for(int j = 0; j < numRows; j++){
         for(int k = 0; k < numColumns; k++){
             //ERROR: Slot color given value of 34
-            if((enum SlotColor)gameBoard[j][k] == currentColor){
+            if([gameBoard[j][k] intValue] == currentColor){
                 for(int i = 0; i < [directionList count]; i++){
-                    
-                    retVal = [self gameWonHelper:1 inDirection:(enum Direction)directionList[i] inRow:0 inColumn:0];
+                    retVal = [self gameWonHelper:1 inDirection:(enum Direction)[directionList[i] intValue] inRow:j inColumn:k];
                     if(retVal){
                         return retVal;
                     }
@@ -89,16 +88,15 @@
           inRow:(int)rowIndex
        inColumn:(int)columnIndex{
     bool retVal = false;
-    NSLog(@"Entered");
-    if(numConnected == 4){
+    if(numConnected == 5){
         return true;
     }
     
     //Check for edge cases
-    if([self isOutOfBounds:rowIndex inColumn:columnIndex] || (enum SlotColor)gameBoard[rowIndex][columnIndex] != currentColor){
+    if([self isOutOfBounds:rowIndex inColumn:columnIndex] || [gameBoard[rowIndex][columnIndex] intValue] != currentColor){
         return false;
     }
-    switch (direction) {
+    switch ((int)direction) {
         case RIGHT:
             retVal =[self gameWonHelper:numConnected + 1 inDirection:RIGHT inRow:rowIndex inColumn:columnIndex + 1];
             break;
