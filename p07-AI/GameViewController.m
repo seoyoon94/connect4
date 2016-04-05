@@ -31,10 +31,6 @@
 
 @implementation GameViewController
 
--(void)bullshit {
-    NSLog(@"PRESSED");
-}
-
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -59,30 +55,6 @@
         [connect4 initConnect4Board];
     }
 }
-
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    
-//    // Configure the view.
-//    SKView * skView = (SKView *)self.view;
-//    skView.showsFPS = YES;
-//    skView.showsNodeCount = YES;
-//    /* Sprite Kit applies additional optimizations to improve rendering performance */
-//    skView.ignoresSiblingOrder = YES;
-//    
-//    // Create and configure the scene.
-//    scene = [GameScene unarchiveFromFile:@"GameScene"];
-//    scene.scaleMode = SKSceneScaleModeAspectFill;
-//    
-//    // Present the scene.
-//    scene.viewController = self;
-//    [skView presentScene:scene];
-//    
-//    // Initialize Connect4 engine
-//    connect4 = [[Connect4 alloc] init];
-//    [connect4 initConnect4Board];
-//}
 
 - (BOOL)shouldAutorotate
 {
