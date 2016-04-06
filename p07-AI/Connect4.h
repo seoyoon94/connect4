@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "GameViewController.h"
 
-@class Connect4;
-
 @protocol Connect4Delegate
 
 -(void)gameDidEnd:(Connect4 *)connect4;
@@ -41,7 +39,7 @@
 @property const int maxNumPieces;
 @property int currentNumPieces;
 @property NSMutableArray* numPiecesInColumn;
-@property (assign, nonatomic) id delegate;
+@property (weak, nonatomic) id delegate;
 
 -(void) initConnect4Board;
 -(void) addPieceToBoard:(int)index;

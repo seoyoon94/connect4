@@ -50,6 +50,7 @@
     gameBoard[rowIndex][index] = [NSNumber numberWithInt:currentColor];
     numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
     if([self gameWon]){
+        NSLog(@"Game ended.");
         [delegate gameDidEnd:self];
     }
     if(currentColor == RED){
@@ -136,6 +137,8 @@
     for(int i = 0; i < numColumns; i++){
         numPiecesInColumn[i] = [NSNumber numberWithInt:0];
     }
+    
+    currentColor = RED;
 }
 
 @end

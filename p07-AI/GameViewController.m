@@ -8,6 +8,7 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
+#import "Connect4.h"
 
 
 @implementation SKScene (Unarchive)
@@ -29,7 +30,7 @@
 
 @end
 
-@implementation GameViewController
+@implementation GameViewController 
 
 - (void)viewWillLayoutSubviews
 {
