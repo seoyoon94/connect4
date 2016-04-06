@@ -56,12 +56,15 @@
     }
     if(currentColor == RED){
         currentColor = BLACK;
+        numMovesPlayed++;
+        [delegate callAIMove:self];
     }
     else{
         currentColor = RED;
+        numMovesPlayed++;
     }
     
-    numMovesPlayed++;
+    
 }
 
 -(bool) gameWon{
@@ -151,7 +154,20 @@
                  depth:(int)depth
                  alpha:(int)alpha
                   beta:(int)beta{
-    if(!depth || [state gameWon]){
+    if(!depth && ![state gameWon]){
+        return 0;
+    }
+    if(!depth && [state gameWon]){
+        int score = 0;
+        if(player == RED){
+            score = -50 + (42 - depth);
+        }
+        else{
+            score = 50 - (42 - depth);
+        }
+        return score;
+    }
+    if([state gameWon]){
         int score = 0;
         if(player == RED){
             score = -50 + (42 - depth);
@@ -197,7 +213,7 @@
 //        else{
 //            nextPlayer = RED;
 //        }
-        int sc = -[self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:-1 beta:1];
+        int sc = -[self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:-50 beta:50];
         if(sc > score){
             bestMove = [move intValue];
             score = sc;
@@ -216,7 +232,7 @@
 /* Returns the list of remaining available moves */
 -(NSMutableArray *)availableMoves{
     NSMutableArray *moveList = [[NSMutableArray alloc] init];
-    for(int i = 0; i < [numPiecesInColumn count]; i++){
+    for(int i = 0; i < numColumns; i++){
         if([numPiecesInColumn[i] intValue] < numRows){
             [moveList addObject:[NSNumber numberWithInt:i]];
         }

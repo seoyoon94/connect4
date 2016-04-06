@@ -84,7 +84,7 @@
 
 - (void)buttonPressed:(UIButton *)sender{
     if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
-        [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue]];
+        [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
         [connect4 addPieceToBoard:(int)sender.tag];
     }
 }
@@ -92,6 +92,13 @@
 - (void)gameDidEnd:(Connect4 *)connect4{
     [self->connect4 clearBoard];
     [scene clearBoard];
+}
+
+-(void)callAIMove:(Connect4 *)connect4{
+    int column = [self->connect4 findBestMove];
+    int row = [self->connect4.numPiecesInColumn[[self->connect4 findBestMove]] intValue];
+    [self->connect4 addPieceToBoard:column];
+    [scene insertPieceInView:column row:row player:1];
 }
 
 @end

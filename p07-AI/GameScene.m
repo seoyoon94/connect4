@@ -59,12 +59,24 @@
     /* Called before each frame is rendered */
 }
 
--(void)insertPieceInView:(int)column row:(int)row {
-    SKSpriteNode *newPiece = [[SKSpriteNode alloc] initWithImageNamed:@"connect4red.png"];
-    newPiece.name = @"Red Piece";
-    newPiece.size = CGSizeMake(buttonWidth, buttonHeight);
-    newPiece.position = CGPointMake(boardBeginX + (column * buttonWidth), boardBeginY + (row * buttonWidth));
-    [self addChild:newPiece];
+-(void)insertPieceInView:(int)column
+                     row:(int)row
+                  player:(int)player{
+    if(player == 0){
+        SKSpriteNode *newPiece = [[SKSpriteNode alloc] initWithImageNamed:@"connect4red.png"];
+        newPiece.name = @"Red Piece";
+        newPiece.size = CGSizeMake(buttonWidth, buttonHeight);
+        newPiece.position = CGPointMake(boardBeginX + (column * buttonWidth), boardBeginY + (row * buttonWidth));
+        [self addChild:newPiece];
+    }
+    else{
+        SKSpriteNode *newPiece = [[SKSpriteNode alloc] initWithImageNamed:@"connect4black.png"];
+        newPiece.name = @"Black Piece";
+        newPiece.size = CGSizeMake(buttonWidth, buttonHeight);
+        newPiece.position = CGPointMake(boardBeginX + (column * buttonWidth), boardBeginY + (row * buttonWidth));
+        [self addChild:newPiece];
+    }
+
 }
 
 -(void)clearBoard{

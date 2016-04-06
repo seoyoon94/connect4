@@ -19,7 +19,8 @@
 }
 
 -(void) insertPieceInView:(int)column
-                    row:(int)row;
+                    row:(int)row
+                   player:(int)player;
 
 -(void) clearBoard;
 
