@@ -53,18 +53,16 @@
     numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
     if([self gameWon]){
         [delegate gameDidEnd:self];
+    } else {
+        if(currentColor == RED) {
+            currentColor = BLACK;
+            numMovesPlayed++;
+            [delegate callAIMove:self];
+        } else {
+            currentColor = RED;
+            numMovesPlayed++;
+        }
     }
-    if(currentColor == RED){
-        currentColor = BLACK;
-        numMovesPlayed++;
-        [delegate callAIMove:self];
-    }
-    else{
-        currentColor = RED;
-        numMovesPlayed++;
-    }
-    
-    
 }
 
 -(bool) gameWon{
@@ -153,11 +151,14 @@
                 player:(enum SlotColor)player
                  depth:(int)depth
                  alpha:(int)alpha
-                  beta:(int)beta{
-    if(!depth && ![state gameWon]){
+                  beta:(int)beta {
+    
+    if((depth == 0) && ![state gameWon]){
+        NSLog(@"NS LOG 1");
         return 0;
     }
-    if(!depth && [state gameWon]){
+    if((depth == 0) && [state gameWon]){
+        NSLog(@"NS LOG 2");
         int score = 0;
         if(player == RED){
             score = -50 + (42 - depth);
@@ -168,6 +169,7 @@
         return score;
     }
     if([state gameWon]){
+        NSLog(@"NS LOG 3");
         int score = 0;
         if(player == RED){
             score = -50 + (42 - depth);
@@ -180,7 +182,6 @@
     NSArray *moves = [state availableMoves];
     id enumerator = [moves objectEnumerator];
     for(id move ; [enumerator nextObject];){
-        NSLog(@"alphaBeta %d", [move intValue]);
         Connect4 *nextState = [state nextStateWithMove:[move intValue]];
 //        enum SlotColor nextPlayer;
 //        if(player == RED){
@@ -189,7 +190,7 @@
 //        else{
 //            nextPlayer = RED;
 //        }
-        int score = -[self miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:-beta beta:-alpha];
+        int score = [self miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:-beta beta:-alpha];
         if(score > alpha){
             alpha = score;
         }
@@ -206,7 +207,6 @@
     NSArray *moveList = [self availableMoves];
     id enumerator = [moveList objectEnumerator];
     for(id move; move = [enumerator nextObject];){
-        NSLog(@"findBestMove %d", [move intValue]);
         Connect4 * nextState = [self nextStateWithMove:[move intValue]];
 //        enum SlotColor nextPlayer;
 //        if(nextPlayer == RED){
@@ -215,7 +215,7 @@
 //        else{
 //            nextPlayer = RED;
 //        }
-        int sc = -[self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:-50 beta:50];
+        int sc = [self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:-50 beta:50];
         if(sc > score){
             bestMove = [move intValue];
             score = sc;
@@ -228,7 +228,6 @@
 -(Connect4 *)nextStateWithMove:(int)move{
     Connect4 *nextState = [self copy];
     [nextState addPieceToBoard:move];
-    NSLog(@"nextStateWithMove %d", move);
     return nextState;
 }
 
@@ -246,7 +245,18 @@
 -(id)copyWithZone:(NSZone *)zone {
     Connect4 *copiedInstance = [[Connect4 alloc] init];
     
-    NSLog(@"copy with zone being called");
+    copiedInstance->currentColor = self->currentColor;
+    for (int i = 0; i < [self->gameBoard count]; ++i) {
+        NSMutableArray *copiedRow = [[NSMutableArray alloc] initWithArray:(self->gameBoard)[i] copyItems:YES];
+        [copiedInstance->gameBoard addObject:copiedRow];
+    }
+    copiedInstance.numMovesPlayed = self.numMovesPlayed;
+    copiedInstance.numRows = self.numRows;
+    copiedInstance.numColumns = self.numColumns;
+    copiedInstance.maxNumPieces = self.maxNumPieces;
+    copiedInstance.currentNumPieces = self.currentNumPieces;
+    copiedInstance.numPiecesInColumn = [[NSMutableArray alloc] initWithArray:self->numPiecesInColumn copyItems:YES];
+    copiedInstance.delegate = self.delegate;
     
     return copiedInstance;
 }

@@ -97,8 +97,8 @@
 -(void)callAIMove:(Connect4 *)connect4{
     int column = [self->connect4 findBestMove];
     int row = [self->connect4.numPiecesInColumn[[self->connect4 findBestMove]] intValue];
-    [self->connect4 addPieceToBoard:column];
     [scene insertPieceInView:column row:row player:1];
+    [self->connect4 addPieceToBoard:column];
 }
 
 @end
