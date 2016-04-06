@@ -180,6 +180,7 @@
     NSArray *moves = [state availableMoves];
     id enumerator = [moves objectEnumerator];
     for(id move ; [enumerator nextObject];){
+        NSLog(@"alphaBeta %d", [move intValue]);
         Connect4 *nextState = [state nextStateWithMove:[move intValue]];
 //        enum SlotColor nextPlayer;
 //        if(player == RED){
@@ -205,6 +206,7 @@
     NSArray *moveList = [self availableMoves];
     id enumerator = [moveList objectEnumerator];
     for(id move; move = [enumerator nextObject];){
+        NSLog(@"findBestMove %d", [move intValue]);
         Connect4 * nextState = [self nextStateWithMove:[move intValue]];
 //        enum SlotColor nextPlayer;
 //        if(nextPlayer == RED){
@@ -224,8 +226,9 @@
 
 /* Returns the next game state after the next possible move has been played */
 -(Connect4 *)nextStateWithMove:(int)move{
-    Connect4 *nextState = self;
+    Connect4 *nextState = [self copy];
     [nextState addPieceToBoard:move];
+    NSLog(@"nextStateWithMove %d", move);
     return nextState;
 }
 
@@ -238,6 +241,14 @@
         }
     }
     return moveList;
+}
+
+-(id)copyWithZone:(NSZone *)zone {
+    Connect4 *copiedInstance = [[Connect4 alloc] init];
+    
+    NSLog(@"copy with zone being called");
+    
+    return copiedInstance;
 }
 
 @end

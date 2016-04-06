@@ -16,7 +16,7 @@
 
 @end
 
-@interface Connect4 : NSObject
+@interface Connect4 : NSObject <NSCopying>
 {
     NS_ENUM(NSInteger, SlotColor){
         RED = 0,
@@ -47,5 +47,6 @@
 -(void) addPieceToBoard:(int)index;
 -(void) clearBoard;
 -(int) findBestMove;
+-(id)copyWithZone:(NSZone *)zone;
 
 @end
