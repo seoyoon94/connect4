@@ -71,6 +71,9 @@
     [self enumerateChildNodesWithName:@"//Red Piece" usingBlock:^(SKNode *node, BOOL *stop){
         [node removeFromParent];
     }];
+    [self enumerateChildNodesWithName:@"//Black Piece" usingBlock:^(SKNode *node, BOOL *stop){
+        [node removeFromParent];
+    }];
 }
 
 @end

@@ -34,6 +34,7 @@
     NSMutableArray *gameBoard;
 }
 
+@property int numMovesPlayed;
 @property const int numRows;
 @property const int numColumns;
 @property const int maxNumPieces;

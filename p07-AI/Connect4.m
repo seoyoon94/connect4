@@ -16,12 +16,14 @@
 @synthesize currentNumPieces;
 @synthesize maxNumPieces;
 @synthesize delegate;
+@synthesize numMovesPlayed;
 
 -(void) initConnect4Board {
     [self setNumColumns:7];
     [self setNumRows:6];
     [self setCurrentNumPieces:0];
     [self setMaxNumPieces:numRows * numColumns];
+    [self setNumMovesPlayed:0];
     
     currentColor = RED;
     //Keep track of the number of pieces in each column. Initialize to 0.
@@ -50,7 +52,6 @@
     gameBoard[rowIndex][index] = [NSNumber numberWithInt:currentColor];
     numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
     if([self gameWon]){
-        NSLog(@"Game ended.");
         [delegate gameDidEnd:self];
     }
     if(currentColor == RED){
@@ -59,6 +60,8 @@
     else{
         currentColor = RED;
     }
+    
+    numMovesPlayed++;
 }
 
 -(bool) gameWon{
@@ -139,6 +142,86 @@
     }
     
     currentColor = RED;
+    numMovesPlayed = 0;
+}
+
+/** Beginning of minimax algorithm with alpha beta pruning **/
+-(int)miniMaxAlphaBeta:(Connect4 *)state
+                player:(enum SlotColor)player
+                 depth:(int)depth
+                 alpha:(int)alpha
+                  beta:(int)beta{
+    if(!depth || [state gameWon]){
+        int score = 0;
+        if(player == RED){
+            score = -50 + (42 - depth);
+        }
+        else{
+            score = 50 - (42 - depth);
+        }
+        return score;
+    }
+    NSArray *moves = [state availableMoves];
+    id enumerator = [moves objectEnumerator];
+    for(id move ; [enumerator nextObject];){
+        Connect4 *nextState = [state nextStateWithMove:[move intValue]];
+//        enum SlotColor nextPlayer;
+//        if(player == RED){
+//            nextPlayer = BLACK;
+//        }
+//        else{
+//            nextPlayer = RED;
+//        }
+        int score = -[self miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:-beta beta:-alpha];
+        if(score > alpha){
+            alpha = score;
+        }
+        if(alpha >= beta)
+            break;
+    }
+    return alpha;
+}
+
+/*Find best possible move of current state */
+-(int)findBestMove{
+    int bestMove = -1; //Invalid current move
+    int score = -50; //Change to lowest possible score
+    NSArray *moveList = [self availableMoves];
+    id enumerator = [moveList objectEnumerator];
+    for(id move; move = [enumerator nextObject];){
+        Connect4 * nextState = [self nextStateWithMove:[move intValue]];
+//        enum SlotColor nextPlayer;
+//        if(nextPlayer == RED){
+//            nextPlayer = BLACK;
+//        }
+//        else{
+//            nextPlayer = RED;
+//        }
+        int sc = -[self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:-1 beta:1];
+        if(sc > score){
+            bestMove = [move intValue];
+            score = sc;
+        }
+    }
+    return bestMove;
+}
+
+/* Returns the next game state after the next possible move has been played */
+-(Connect4 *)nextStateWithMove:(int)move{
+    Connect4 *nextState = self;
+    [nextState addPieceToBoard:move];
+    return nextState;
+}
+
+/* Returns the list of remaining available moves */
+-(NSMutableArray *)availableMoves{
+    NSMutableArray *moveList = [[NSMutableArray alloc] init];
+    for(int i = 0; i < [numPiecesInColumn count]; i++){
+        if([numPiecesInColumn[i] intValue] < numRows){
+            [moveList addObject:[NSNumber numberWithInt:i]];
+        }
+    }
+    return moveList;
 }
 
 @end
