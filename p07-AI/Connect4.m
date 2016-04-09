@@ -153,40 +153,46 @@
                   beta:(int)beta
                  count:(int)count {
     int retVal;
-   
-    if (count == 5) {
-        if ((depth == 0) && ![state gameWon]) {
-            return 0;
+    
+    if ((depth == 0) && ![state gameWon]) {
+        //NSLog(@"NSLOG 1");
+        return 0;
+    }
+    if ((depth == 0) && [state gameWon]) {
+        //NSLog(@"NSLOG 2");
+        int score = 0;
+        if(player == RED){
+            score = -50 + (42 - depth);
         }
-        if ((depth == 0) && [state gameWon]) {
-            int score = 0;
-            if(player == RED){
-                score = -50 + (42 - depth);
-            }
-            else{
-                score = 50 - (42 - depth);
-            }
-            return score;
+        else{
+            score = 50 - (42 - depth);
         }
-        if ([state gameWon]) {
-            int score = 0;
-            if(player == RED){
-                score = -50 + (42 - depth);
-            }
-            else{
-                score = 50 - (42 - depth);
-            }
-            return score;
+        return score;
+    }
+    if ([state gameWon]) {
+        //NSLog(@"NSLOG 3");
+        int score = 0;
+        if(player == RED){
+            score = -50 + (42 - depth);
         }
+        else{
+            score = 50 - (42 - depth);
+        }
+        return score;
+    }
+    
+    if (count == 6) {
         
-        return (arc4random() % numColumns);
+        retVal = (arc4random() % 20);
+        
+        return retVal;
     }
 
     NSArray *moves = [state availableMoves];
     for (int move = 0; move < [moves count]; move++) {
         Connect4 *nextState = [state nextStateWithMove:[moves[move] intValue]];
         int score = [state miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:alpha beta:beta count:(count + 1)];
-        
+
         if (player == BLACK) {
             if (score > alpha) {
                 alpha = score;
@@ -207,6 +213,7 @@
     } else {
         retVal = beta;
     }
+    
     return retVal;
 }
 
@@ -219,12 +226,13 @@
     for(int move = 0; move < [moveList count]; move++){
         Connect4 * nextState = [self nextStateWithMove:[moveList[move] intValue]];
         int sc = [self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:alpha beta:beta count:0];
-        NSLog(@"sc: %d", sc);
         if(sc > alpha) {
             bestMove = move;
             alpha = sc;
         }
     }
+    
+    //bestMove = [moveList[arc4random() % [moveList count]] intValue];
     return bestMove;
 }
 

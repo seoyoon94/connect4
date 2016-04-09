@@ -86,6 +86,7 @@
     if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
         [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
         [connect4 addPieceToBoard:(int)sender.tag];
+        
         int column = [connect4 findBestMove];
         int row = [connect4.numPiecesInColumn[column] intValue];
         [scene insertPieceInView:column row:row player:1];
