@@ -24,6 +24,7 @@
     [self setCurrentNumPieces:0];
     [self setMaxNumPieces:numRows * numColumns];
     [self setNumMovesPlayed:0];
+    recursive = NO;
     
     currentColor = RED;
     //Keep track of the number of pieces in each column. Initialize to 0.
@@ -51,13 +52,12 @@
     int rowIndex = [numPiecesInColumn[index] intValue];
     gameBoard[rowIndex][index] = [NSNumber numberWithInt:currentColor];
     numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
-    if([self gameWon]){
+    if([self gameWon] && !self->recursive){
         [delegate gameDidEnd:self];
     } else {
         if(currentColor == RED) {
             currentColor = BLACK;
             numMovesPlayed++;
-//            [delegate callAIMove:self];
         } else {
             currentColor = RED;
             numMovesPlayed++;
@@ -150,10 +150,11 @@
                 player:(enum SlotColor)player
                  depth:(int)depth
                  alpha:(int)alpha
-                  beta:(int)beta {
+                  beta:(int)beta
+                 count:(int)count {
     int retVal;
-    
-    if () {
+   
+    if (count == 5) {
         if ((depth == 0) && ![state gameWon]) {
             return 0;
         }
@@ -177,12 +178,14 @@
             }
             return score;
         }
+        
+        return (arc4random() % numColumns);
     }
-    
+
     NSArray *moves = [state availableMoves];
     for (int move = 0; move < [moves count]; move++) {
         Connect4 *nextState = [state nextStateWithMove:[moves[move] intValue]];
-        int score = [state miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:alpha beta:beta];
+        int score = [state miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:alpha beta:beta count:(count + 1)];
         
         if (player == BLACK) {
             if (score > alpha) {
@@ -214,9 +217,9 @@
     int beta = 50;
     NSArray *moveList = [self availableMoves];
     for(int move = 0; move < [moveList count]; move++){
-        NSLog(@"NEXT TREE BEING EXPLORED");
         Connect4 * nextState = [self nextStateWithMove:[moveList[move] intValue]];
-        int sc = [self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:alpha beta:beta];
+        int sc = [self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:alpha beta:beta count:0];
+        NSLog(@"sc: %d", sc);
         if(sc > alpha) {
             bestMove = move;
             alpha = sc;
@@ -259,6 +262,7 @@
     copiedInstance.currentNumPieces = self.currentNumPieces;
     copiedInstance.numPiecesInColumn = [[NSMutableArray alloc] initWithArray:self->numPiecesInColumn copyItems:YES];
     copiedInstance.delegate = self.delegate;
+    copiedInstance->recursive = YES;
     
     return copiedInstance;
 }

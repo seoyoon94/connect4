@@ -94,15 +94,8 @@
 }
 
 - (void)gameDidEnd:(Connect4 *)connect4{
-    [self->connect4 clearBoard];
+    [connect4 clearBoard];
     [scene clearBoard];
 }
-
-//-(void)callAIMove:(Connect4 *)connect4{
-//    int column = [connect4 findBestMove];
-//    int row = [connect4.numPiecesInColumn[column] intValue];
-//    [scene insertPieceInView:column row:row player:1];
-//    [connect4 addPieceToBoard:column];
-//}
 
 @end

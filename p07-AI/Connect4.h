@@ -33,6 +33,7 @@
     
     enum SlotColor currentColor;
     NSMutableArray *gameBoard;
+    BOOL recursive;
 }
 
 @property int numMovesPlayed;
