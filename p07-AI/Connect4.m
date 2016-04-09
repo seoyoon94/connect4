@@ -151,55 +151,75 @@
                  depth:(int)depth
                  alpha:(int)alpha
                   beta:(int)beta {
-    if((depth == 0) && ![state gameWon]) {
-        return 0;
-    }
-    if((depth == 0) && [state gameWon]) {
-        int score = 0;
-        if(player == RED){
-            score = -50 + (42 - depth);
+    int retVal;
+    
+    if () {
+        if ((depth == 0) && ![state gameWon]) {
+            return 0;
         }
-        else{
-            score = 50 - (42 - depth);
+        if ((depth == 0) && [state gameWon]) {
+            int score = 0;
+            if(player == RED){
+                score = -50 + (42 - depth);
+            }
+            else{
+                score = 50 - (42 - depth);
+            }
+            return score;
         }
-        return score;
-    }
-    if([state gameWon]){
-        int score = 0;
-        if(player == RED){
-            score = -50 + (42 - depth);
+        if ([state gameWon]) {
+            int score = 0;
+            if(player == RED){
+                score = -50 + (42 - depth);
+            }
+            else{
+                score = 50 - (42 - depth);
+            }
+            return score;
         }
-        else{
-            score = 50 - (42 - depth);
-        }
-        return score;
     }
     
     NSArray *moves = [state availableMoves];
-    for(int move = 0; move < [moves count]; move++){
+    for (int move = 0; move < [moves count]; move++) {
         Connect4 *nextState = [state nextStateWithMove:[moves[move] intValue]];
-        int score = [state miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:-beta beta:-alpha];
-        if(score > alpha){
-            alpha = score;
+        int score = [state miniMaxAlphaBeta:nextState player:nextState->currentColor depth:depth - 1 alpha:alpha beta:beta];
+        
+        if (player == BLACK) {
+            if (score > alpha) {
+                alpha = score;
+            }
+        } else {
+            if (score < beta) {
+                beta = score;
+            }
         }
-        if(alpha >= beta)
+        
+        if (alpha >= beta) {
             break;
+        }
     }
-    return alpha;
+    
+    if (player == BLACK) {
+        retVal = alpha;
+    } else {
+        retVal = beta;
+    }
+    return retVal;
 }
 
 /*Find best possible move of current state */
 -(int)findBestMove{
-    int bestMove = -1; //Invalid current move
-    int score = -50; //Change to lowest possible score
+    int bestMove = -1;
+    int alpha = -50;
+    int beta = 50;
     NSArray *moveList = [self availableMoves];
     for(int move = 0; move < [moveList count]; move++){
         NSLog(@"NEXT TREE BEING EXPLORED");
         Connect4 * nextState = [self nextStateWithMove:[moveList[move] intValue]];
-        int sc = [self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:-50 beta:50];
-        if(sc > score){
+        int sc = [self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:alpha beta:beta];
+        if(sc > alpha) {
             bestMove = move;
-            score = sc;
+            alpha = sc;
         }
     }
     return bestMove;

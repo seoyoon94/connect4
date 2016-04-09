@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "p07-AI/Connect4.m"
-            timestampString = "481920462.534632"
+            timestampString = "481923731.620974"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-findBestMove"
             landmarkType = "5">
          </BreakpointContent>
