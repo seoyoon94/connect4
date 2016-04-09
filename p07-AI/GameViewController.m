@@ -86,6 +86,10 @@
     if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
         [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
         [connect4 addPieceToBoard:(int)sender.tag];
+        int column = [connect4 findBestMove];
+        int row = [connect4.numPiecesInColumn[column] intValue];
+        [scene insertPieceInView:column row:row player:1];
+        [connect4 addPieceToBoard:column];
     }
 }
 
@@ -94,11 +98,11 @@
     [scene clearBoard];
 }
 
--(void)callAIMove:(Connect4 *)connect4{
-    int column = [self->connect4 findBestMove];
-    int row = [self->connect4.numPiecesInColumn[[self->connect4 findBestMove]] intValue];
-    [scene insertPieceInView:column row:row player:1];
-    [self->connect4 addPieceToBoard:column];
-}
+//-(void)callAIMove:(Connect4 *)connect4{
+//    int column = [connect4 findBestMove];
+//    int row = [connect4.numPiecesInColumn[column] intValue];
+//    [scene insertPieceInView:column row:row player:1];
+//    [connect4 addPieceToBoard:column];
+//}
 
 @end

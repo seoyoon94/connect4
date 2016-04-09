@@ -12,7 +12,7 @@
 @protocol Connect4Delegate
 
 -(void)gameDidEnd:(Connect4 *)connect4;
--(void)callAIMove:(Connect4 *)connect4;
+//-(void)callAIMove:(Connect4 *)connect4;
 
 @end
 
