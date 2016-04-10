@@ -22,5 +22,6 @@
 
 - (void)buttonPressed:(UIButton *)sender;
 - (void)gameDidEnd:(Connect4 *)connect4;
+- (void)callAI;
 
 @end

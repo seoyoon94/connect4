@@ -55,6 +55,7 @@
         connect4 = [[Connect4 alloc] init];
         [connect4 initConnect4Board];
         connect4.delegate = self;
+        isPlaying = NO;
     }
 }
 
@@ -82,16 +83,20 @@
     return YES;
 }
 
-- (void)buttonPressed:(UIButton *)sender{
+- (void)buttonPressed:(UIButton *)sender {
     if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
+        isPlaying = YES;
         [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
         [connect4 addPieceToBoard:(int)sender.tag];
-        
+        [self performSelector:@selector(callAI) withObject:nil afterDelay:0.5];
+    }
+}
+
+-(void) callAI {
         int column = [connect4 findBestMove];
         int row = [connect4.numPiecesInColumn[column] intValue];
         [scene insertPieceInView:column row:row player:1];
         [connect4 addPieceToBoard:column];
-    }
 }
 
 - (void)gameDidEnd:(Connect4 *)connect4{

@@ -14,6 +14,7 @@
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
     numColumns = 7;
+    numRows = 6;
     self.backgroundColor = [SKColor blackColor];
     screenWidth = view.bounds.size.width;
     screenHeight = view.bounds.size.height;
@@ -76,7 +77,7 @@
         newPiece.position = CGPointMake(boardBeginX + (column * buttonWidth), boardBeginY + (row * buttonWidth));
         [self addChild:newPiece];
     }
-
+    
 }
 
 -(void)clearBoard{

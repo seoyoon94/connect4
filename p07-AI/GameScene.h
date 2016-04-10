@@ -12,6 +12,7 @@
 @interface GameScene : SKScene
 {
     int numColumns;
+    int numRows;
     float screenWidth, screenHeight;
     float columnWidth, columnHeight;
     float buttonWidth, buttonHeight;

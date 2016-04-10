@@ -184,6 +184,9 @@
     if (count == 6) {
         
         retVal = (arc4random() % 20);
+//        if (player == RED) {
+//            retVal = -retVal;
+//        }
         
         return retVal;
     }
@@ -227,7 +230,7 @@
         Connect4 * nextState = [self nextStateWithMove:[moveList[move] intValue]];
         int sc = [self miniMaxAlphaBeta:nextState player:((Connect4 *)nextState)->currentColor depth:(42 - nextState.numMovesPlayed) alpha:alpha beta:beta count:0];
         if(sc > alpha) {
-            bestMove = move;
+            bestMove = [moveList[move] intValue];
             alpha = sc;
         }
     }
