@@ -10,6 +10,7 @@
 
 @implementation Connect4
 
+@synthesize currentColor;
 @synthesize numColumns;
 @synthesize numRows;
 @synthesize numPiecesInColumn;
@@ -53,6 +54,7 @@
     gameBoard[rowIndex][index] = [NSNumber numberWithInt:currentColor];
     numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
     if([self gameWon] && !self->recursive){
+        [delegate setGameEnded:YES];
         [delegate gameDidEnd:self];
     } else {
         if(currentColor == RED) {

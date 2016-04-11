@@ -24,6 +24,7 @@
                    player:(int)player;
 
 -(void) clearBoard;
+-(void) gameOverAlert:(int)currentColor;
 
 @property GameViewController *viewController;
 @end

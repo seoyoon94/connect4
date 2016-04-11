@@ -31,11 +31,11 @@
         UP_RIGHT = 3
     };
     
-    enum SlotColor currentColor;
     NSMutableArray *gameBoard;
     BOOL recursive;
 }
 
+@property enum SlotColor currentColor;
 @property int numMovesPlayed;
 @property const int numRows;
 @property const int numColumns;

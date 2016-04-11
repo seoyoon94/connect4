@@ -13,11 +13,50 @@
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
-    numColumns = 7;
-    numRows = 6;
-    self.backgroundColor = [SKColor blackColor];
     screenWidth = view.bounds.size.width;
     screenHeight = view.bounds.size.height;
+    
+    SKScene *menuScreen = [self initMenuScreen:view];
+    [self.view presentScene:menuScreen];
+}
+
+-(SKScene *) initMenuScreen:(SKView *)view{
+    SKScene *scene = [[SKScene alloc] initWithSize:view.frame.size];
+    scene.backgroundColor = [UIColor blackColor];
+    SKSpriteNode *title = [[SKSpriteNode alloc] initWithImageNamed:@"title.png"];
+    title.size = CGSizeMake(view.frame.size.width, title.size.height);
+    title.position = CGPointMake(title.size.width / 2, screenHeight - title.size.height);
+    [scene addChild:title];
+    
+    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 200, 200)];
+    [playButton setTitle:@"Play" forState:UIControlStateNormal];
+    [scene.view addSubview:playButton];
+    
+    UIButton *exitButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 200)];
+    [exitButton setTitle:@"Exit" forState:UIControlStateNormal];
+    [scene.view addSubview:exitButton];
+    
+//    UIButton *easyButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 200)];
+//    [easyButton setTitle:@"Easy" forState:UIControlStateNormal];
+//    [scene.view addSubview:easyButton];
+//    
+//    UIButton *mediumButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 200)];
+//    [mediumButton setTitle:@"Medium" forState:UIControlStateNormal];
+//    [scene.view addSubview:mediumButton];
+//    
+//    UIButton *hardButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 200)];
+//    [hardButton setTitle:@"Hard" forState:UIControlStateNormal];
+//    [scene.view addSubview:hardButton];
+    
+    return scene;
+}
+
+-(SKScene *) initGameBoard:(SKView *)view{
+    SKScene *scene = [[SKScene alloc] initWithSize:view.frame.size];
+    numColumns = 7;
+    numRows = 6;
+    scene.backgroundColor = [SKColor blackColor];
+    
     
     int tempTag = 0;
     for(int i = 0; i < numColumns; i++){
@@ -27,7 +66,7 @@
         columnWidth = column.size.width;
         columnHeight = column.size.height;
         column.position = CGPointMake(screenWidth / 9 + i * columnWidth + columnWidth/2, screenHeight/2);
-        [self addChild:column];
+        [scene addChild:column];
         
         //Create buttons
         UIButton *columnButton = [[UIButton alloc]initWithFrame:CGRectMake(column.size.width + i * column.size.width, screenHeight/2 + column.size.height/2, columnWidth, columnWidth)];
@@ -44,8 +83,10 @@
         [columnButton setImage:buttonImage forState:UIControlStateNormal];
         //Once button is pressed, call the buttonPressed method from the View Controller
         [columnButton addTarget:viewController action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:columnButton];
+        [scene.view addSubview:columnButton];
     }
+    
+    return scene;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -77,7 +118,6 @@
         newPiece.position = CGPointMake(boardBeginX + (column * buttonWidth), boardBeginY + (row * buttonWidth));
         [self addChild:newPiece];
     }
-    
 }
 
 -(void)clearBoard{
@@ -87,6 +127,27 @@
     [self enumerateChildNodesWithName:@"//Black Piece" usingBlock:^(SKNode *node, BOOL *stop){
         [node removeFromParent];
     }];
+}
+
+-(void) gameOverAlert:(int)currentColor {
+    NSString *winnerMessage = @"Congratulations, you defeated the AI!";
+    
+    if (currentColor == 1) {
+        winnerMessage = @"The AI defeated you, better luck next time!";
+    }
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Game Over"
+                                                                   message:winnerMessage
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* playAgainAction = [UIAlertAction actionWithTitle:@"Rematch" style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * action) {[viewController gameReset];}];
+    UIAlertAction* exitGameAction = [UIAlertAction actionWithTitle:@"Exit to Menu" style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * action) {NSLog(@"exit game");}];
+    
+    [alert addAction:playAgainAction];
+    [alert addAction:exitGameAction];
+    UIViewController *vc = self.view.window.rootViewController;
+    [vc presentViewController:alert animated:YES completion:nil];
 }
 
 @end

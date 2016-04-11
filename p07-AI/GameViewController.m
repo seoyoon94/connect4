@@ -32,6 +32,9 @@
 
 @implementation GameViewController 
 
+@synthesize moveInProgress;
+@synthesize gameEnded;
+
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -55,7 +58,8 @@
         connect4 = [[Connect4 alloc] init];
         [connect4 initConnect4Board];
         connect4.delegate = self;
-        isPlaying = NO;
+        moveInProgress = NO;
+        gameEnded = NO;
     }
 }
 
@@ -84,12 +88,19 @@
 }
 
 - (void)buttonPressed:(UIButton *)sender {
-    if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
-        isPlaying = YES;
-        [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
-        [connect4 addPieceToBoard:(int)sender.tag];
-        [self performSelector:@selector(callAI) withObject:nil afterDelay:0.5];
+    if (!moveInProgress) {
+        moveInProgress = YES;
+        if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
+            [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
+            [connect4 addPieceToBoard:(int)sender.tag];
+            
+            if (!gameEnded) {
+                [self performSelector:@selector(callAI) withObject:nil afterDelay:0.5];
+            }
+        }
     }
+    
+    moveInProgress = NO;
 }
 
 -(void) callAI {
@@ -100,6 +111,10 @@
 }
 
 - (void)gameDidEnd:(Connect4 *)connect4{
+    [scene gameOverAlert:connect4.currentColor];
+}
+
+-(void)gameReset {
     [connect4 clearBoard];
     [scene clearBoard];
 }
