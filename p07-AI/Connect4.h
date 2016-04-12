@@ -35,6 +35,7 @@
     BOOL recursive;
 }
 
+@property int difficulty;
 @property enum SlotColor currentColor;
 @property int numMovesPlayed;
 @property const int numRows;

@@ -8,6 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "GameViewController.h"
+#import "MenuScene.h"
 
 @interface GameScene : SKScene
 {
@@ -25,6 +26,7 @@
 
 -(void) clearBoard;
 -(void) gameOverAlert:(int)currentColor;
+-(GameScene *)initGameBoard;
 
 @property GameViewController *viewController;
 @property SKView *selfView;

@@ -18,6 +18,7 @@
 @synthesize maxNumPieces;
 @synthesize delegate;
 @synthesize numMovesPlayed;
+@synthesize difficulty;
 
 -(void) initConnect4Board {
     [self setNumColumns:7];
@@ -155,7 +156,7 @@
                   beta:(int)beta
                  count:(int)count {
     int retVal;
-    
+    NSLog(@"Difficulty: %d", difficulty);
     if ((depth == 0) && ![state gameWon]) {
         //NSLog(@"NSLOG 1");
         return 0;
@@ -183,12 +184,9 @@
         return score;
     }
     
-    if (count == 6) {
+    if (count == difficulty) {
         
         retVal = (arc4random() % 20);
-//        if (player == RED) {
-//            retVal = -retVal;
-//        }
         
         return retVal;
     }
@@ -276,6 +274,7 @@
     copiedInstance.numPiecesInColumn = [[NSMutableArray alloc] initWithArray:self->numPiecesInColumn copyItems:YES];
     copiedInstance.delegate = self.delegate;
     copiedInstance->recursive = YES;
+    copiedInstance.difficulty = self.difficulty;
     
     return copiedInstance;
 }

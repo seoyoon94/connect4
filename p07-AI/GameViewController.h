@@ -12,19 +12,23 @@
 
 @class GameScene;
 @class Connect4;
+@class MenuScene;
 @protocol Connect4Delegate;
 
 @interface GameViewController : UIViewController <Connect4Delegate>
 {
-    GameScene *scene;
+    GameScene *gameScene;
+    MenuScene *menuScene;
     Connect4 *connect4;
 }
 
 @property BOOL moveInProgress;
 @property BOOL gameEnded;
+- (void)presentMenu;
 - (void)buttonPressed:(UIButton *)sender;
 - (void)gameDidEnd:(Connect4 *)connect4;
 - (void)callAI;
 - (void) gameReset;
+- (void) startGame:(int)difficulty;
 
 @end

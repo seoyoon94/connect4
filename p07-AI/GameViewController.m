@@ -8,6 +8,7 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
+#import "MenuScene.h"
 #import "Connect4.h"
 
 
@@ -47,12 +48,12 @@
         
         // Create and configure the scene.
         //scene = [GameScene unarchiveFromFile:@"GameScene"];
-        scene = [GameScene sceneWithSize:skView.bounds.size];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        scene.viewController = self;
+        menuScene = [MenuScene sceneWithSize:skView.bounds.size];
+        menuScene.scaleMode = SKSceneScaleModeAspectFill;
+        menuScene.viewController = self;
         
         // Present the scene.
-        [skView presentScene:scene];
+        [skView presentScene:menuScene];
         
         // Initialize Connect4 engine
         connect4 = [[Connect4 alloc] init];
@@ -61,6 +62,11 @@
         moveInProgress = NO;
         gameEnded = NO;
     }
+}
+
+-(void) presentMenu{
+    SKView * skView = (SKView *)self.view;
+    [skView presentScene:menuScene];
 }
 
 - (BOOL)shouldAutorotate
@@ -91,7 +97,7 @@
     if (!moveInProgress) {
         moveInProgress = YES;
         if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
-            [scene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
+            [gameScene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
             [connect4 addPieceToBoard:(int)sender.tag];
             
             if (!gameEnded) {
@@ -106,17 +112,33 @@
 -(void) callAI {
         int column = [connect4 findBestMove];
         int row = [connect4.numPiecesInColumn[column] intValue];
-        [scene insertPieceInView:column row:row player:1];
+        [gameScene insertPieceInView:column row:row player:1];
         [connect4 addPieceToBoard:column];
 }
 
 - (void)gameDidEnd:(Connect4 *)connect4{
-    [scene gameOverAlert:connect4.currentColor];
+    [gameScene gameOverAlert:connect4.currentColor];
 }
 
 -(void)gameReset {
+    gameEnded = NO;
+    moveInProgress = NO;
     [connect4 clearBoard];
-    [scene clearBoard];
+    [gameScene clearBoard];
+}
+
+-(void)startGame:(int)difficulty {
+    NSLog(@"asdf: %d", difficulty);
+    connect4.difficulty = difficulty;
+    
+    SKView * skView = (SKView *)self.view;
+    skView.showsFPS = YES;
+    skView.showsNodeCount = YES;
+    
+    gameScene = [GameScene sceneWithSize:skView.bounds.size];
+    gameScene.scaleMode = SKSceneScaleModeAspectFill;
+    gameScene.viewController = self;
+    [skView presentScene:gameScene];
 }
 
 @end

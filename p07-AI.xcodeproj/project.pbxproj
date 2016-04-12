@@ -27,6 +27,7 @@
 		E0930BE41CBC7322002EBBFC /* hardButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E0930BE11CBC7322002EBBFC /* hardButton.png */; };
 		E0930BE51CBC7322002EBBFC /* mediumButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E0930BE21CBC7322002EBBFC /* mediumButton.png */; };
 		E0930BE61CBC7322002EBBFC /* easyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E0930BE31CBC7322002EBBFC /* easyButton.png */; };
+		E0930BE81CBC7B3F002EBBFC /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E0930BE71CBC7B3F002EBBFC /* MenuScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		E0930BE11CBC7322002EBBFC /* hardButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hardButton.png; sourceTree = "<group>"; };
 		E0930BE21CBC7322002EBBFC /* mediumButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediumButton.png; sourceTree = "<group>"; };
 		E0930BE31CBC7322002EBBFC /* easyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = easyButton.png; sourceTree = "<group>"; };
+		E0930BE71CBC7B3F002EBBFC /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
+		E0930BE91CBC7B56002EBBFC /* MenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				83BCACB71CA1FF5F00378E8E /* AppDelegate.m */,
 				832E710F1CB2E68200CEC5EB /* Connect4.h */,
 				832E710E1CB2E68200CEC5EB /* Connect4.m */,
+				E0930BE91CBC7B56002EBBFC /* MenuScene.h */,
+				E0930BE71CBC7B3F002EBBFC /* MenuScene.m */,
 				83BCACB91CA1FF5F00378E8E /* GameScene.h */,
 				83BCACBA1CA1FF5F00378E8E /* GameScene.m */,
 				83BCACBC1CA1FF5F00378E8E /* GameScene.sks */,
@@ -323,6 +328,7 @@
 				83BCACC01CA1FF5F00378E8E /* GameViewController.m in Sources */,
 				83BCACB81CA1FF5F00378E8E /* AppDelegate.m in Sources */,
 				83BCACBB1CA1FF5F00378E8E /* GameScene.m in Sources */,
+				E0930BE81CBC7B3F002EBBFC /* MenuScene.m in Sources */,
 				832E71101CB2E68200CEC5EB /* Connect4.m in Sources */,
 				83BCACB51CA1FF5F00378E8E /* main.m in Sources */,
 			);
