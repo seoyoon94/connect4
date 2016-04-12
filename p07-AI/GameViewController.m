@@ -43,8 +43,6 @@
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     if (!skView.scene) {
-        skView.showsFPS = YES;
-        skView.showsNodeCount = YES;
         
         // Create and configure the scene.
         //scene = [GameScene unarchiveFromFile:@"GameScene"];
@@ -66,6 +64,7 @@
 
 -(void) presentMenu{
     SKView * skView = (SKView *)self.view;
+    [gameScene hideButtons];
     [skView presentScene:menuScene];
 }
 
@@ -94,8 +93,10 @@
 }
 
 - (void)buttonPressed:(UIButton *)sender {
+    
     if (!moveInProgress) {
         moveInProgress = YES;
+        
         if([connect4.numPiecesInColumn[sender.tag] intValue] < connect4.numRows) {
             [gameScene insertPieceInView:(int)sender.tag row:[connect4.numPiecesInColumn[sender.tag] intValue] player:0];
             [connect4 addPieceToBoard:(int)sender.tag];
@@ -105,7 +106,6 @@
             }
         }
     }
-    
     moveInProgress = NO;
 }
 
@@ -116,8 +116,14 @@
         [connect4 addPieceToBoard:column];
 }
 
-- (void)gameDidEnd:(Connect4 *)connect4{
-    [gameScene gameOverAlert:connect4.currentColor];
+- (void)gameDidEnd:(Connect4 *)connect4 draw:(BOOL)draw {
+    int winner = connect4.currentColor;
+    
+    if (draw) {
+        winner = 2;
+    }
+    
+    [gameScene gameOverAlert:winner];
 }
 
 -(void)gameReset {
@@ -125,19 +131,18 @@
     moveInProgress = NO;
     [connect4 clearBoard];
     [gameScene clearBoard];
+    [gameScene showButtons];
 }
 
 -(void)startGame:(int)difficulty {
-    NSLog(@"asdf: %d", difficulty);
     connect4.difficulty = difficulty;
     
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
     
     gameScene = [GameScene sceneWithSize:skView.bounds.size];
     gameScene.scaleMode = SKSceneScaleModeAspectFill;
     gameScene.viewController = self;
+    [gameScene showButtons];
     [skView presentScene:gameScene];
 }
 

@@ -56,7 +56,10 @@
     numPiecesInColumn[index] = [NSNumber numberWithInt:([numPiecesInColumn[index] intValue]) + 1];
     if([self gameWon] && !self->recursive){
         [delegate setGameEnded:YES];
-        [delegate gameDidEnd:self];
+        [delegate gameDidEnd:self draw:NO];
+    } else if (numMovesPlayed == 41 && !self->recursive) {
+        [delegate setGameEnded:YES];
+        [delegate gameDidEnd:self draw:YES];
     } else {
         if(currentColor == RED) {
             currentColor = BLACK;
@@ -156,7 +159,6 @@
                   beta:(int)beta
                  count:(int)count {
     int retVal;
-    NSLog(@"Difficulty: %d", difficulty);
     if ((depth == 0) && ![state gameWon]) {
         //NSLog(@"NSLOG 1");
         return 0;

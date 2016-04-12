@@ -26,7 +26,8 @@
 
 -(void) clearBoard;
 -(void) gameOverAlert:(int)currentColor;
--(GameScene *)initGameBoard;
+-(void) showButtons;
+-(void) hideButtons;
 
 @property GameViewController *viewController;
 @property SKView *selfView;

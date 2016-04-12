@@ -26,7 +26,7 @@
 @property BOOL gameEnded;
 - (void)presentMenu;
 - (void)buttonPressed:(UIButton *)sender;
-- (void)gameDidEnd:(Connect4 *)connect4;
+- (void)gameDidEnd:(Connect4 *)connect4 draw:(BOOL)draw;
 - (void)callAI;
 - (void) gameReset;
 - (void) startGame:(int)difficulty;

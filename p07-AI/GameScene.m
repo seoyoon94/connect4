@@ -20,8 +20,11 @@
     
     numColumns = 7;
     numRows = 6;
-    self.backgroundColor = [SKColor blackColor];
-    
+    self.backgroundColor = [SKColor grayColor];
+    SKSpriteNode *title = [[SKSpriteNode alloc] initWithImageNamed:@"title.png"];
+    title.size = CGSizeMake(selfView.frame.size.width, title.size.height);
+    title.position = CGPointMake(title.size.width / 2, 2 * screenHeight / 3 + title.size.height);
+    [self addChild:title];
     
     int tempTag = 0;
     for(int i = 0; i < numColumns; i++){
@@ -92,6 +95,22 @@
     [self enumerateChildNodesWithName:@"//Black Piece" usingBlock:^(SKNode *node, BOOL *stop){
         [node removeFromParent];
     }];
+    
+    [self hideButtons];
+}
+
+-(void)showButtons {
+    for (UIView* subView in self.view.subviews) {
+        if ([subView isKindOfClass:[UIButton class]])
+            subView.hidden = NO;
+    }
+}
+
+-(void)hideButtons {
+    for (UIView* subView in self.view.subviews) {
+        if ([subView isKindOfClass:[UIButton class]])
+            subView.hidden = YES;
+    }
 }
 
 -(void) gameOverAlert:(int)currentColor {
@@ -99,6 +118,8 @@
     
     if (currentColor == 1) {
         winnerMessage = @"The AI defeated you, better luck next time!";
+    } else if (currentColor == 2) {
+        winnerMessage = @"It was a draw!";
     }
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Game Over"
                                                                    message:winnerMessage
@@ -110,9 +131,12 @@
                                                             handler:^(UIAlertAction * action) {
                                                                 [viewController gameReset];
                                                                 [viewController presentMenu];}];
+    UIAlertAction* viewBoardAction = [UIAlertAction actionWithTitle:@"View Board" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){}];
     
     [alert addAction:playAgainAction];
     [alert addAction:exitGameAction];
+    [alert addAction:viewBoardAction];
+    
     UIViewController *vc = self.view.window.rootViewController;
     [vc presentViewController:alert animated:YES completion:nil];
 }

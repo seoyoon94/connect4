@@ -19,7 +19,7 @@
     screenHeight = view.bounds.size.height;
     selfView = self.view;
     
-    self.backgroundColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor grayColor];
     SKSpriteNode *title = [[SKSpriteNode alloc] initWithImageNamed:@"title.png"];
     title.size = CGSizeMake(selfView.frame.size.width, title.size.height);
     title.position = CGPointMake(title.size.width / 2, 2 * screenHeight / 3 + title.size.height);
@@ -54,7 +54,6 @@
         SKNode *buttonAtLocation = [self nodeAtPoint:location];
         
         if ([buttonAtLocation.name isEqualToString:@"easyButton"]) {
-            NSLog(@"Easy");
             SKAction *colorChage = [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:.5 duration:.001];
             [buttonAtLocation runAction:colorChage];
             [viewController startGame:2];
@@ -65,7 +64,7 @@
         } else if ([buttonAtLocation.name isEqualToString:@"hardButton"]) {
             SKAction *colorChage = [SKAction colorizeWithColor:[SKColor redColor] colorBlendFactor:.5 duration:.001];
             [buttonAtLocation runAction:colorChage];
-            [viewController startGame:6];
+            [viewController startGame:7];
         }
     }
 }
