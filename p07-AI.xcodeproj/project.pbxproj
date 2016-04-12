@@ -24,6 +24,9 @@
 		83BCACC81CA1FF5F00378E8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83BCACC61CA1FF5F00378E8E /* LaunchScreen.storyboard */; };
 		83BCACD31CA1FF5F00378E8E /* p07_AITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BCACD21CA1FF5F00378E8E /* p07_AITests.m */; };
 		83BCACDE1CA1FF5F00378E8E /* p07_AIUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BCACDD1CA1FF5F00378E8E /* p07_AIUITests.m */; };
+		E0930BE41CBC7322002EBBFC /* hardButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E0930BE11CBC7322002EBBFC /* hardButton.png */; };
+		E0930BE51CBC7322002EBBFC /* mediumButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E0930BE21CBC7322002EBBFC /* mediumButton.png */; };
+		E0930BE61CBC7322002EBBFC /* easyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E0930BE31CBC7322002EBBFC /* easyButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		83BCACD91CA1FF5F00378E8E /* p07-AIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "p07-AIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BCACDD1CA1FF5F00378E8E /* p07_AIUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = p07_AIUITests.m; sourceTree = "<group>"; };
 		83BCACDF1CA1FF5F00378E8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0930BE11CBC7322002EBBFC /* hardButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hardButton.png; sourceTree = "<group>"; };
+		E0930BE21CBC7322002EBBFC /* mediumButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediumButton.png; sourceTree = "<group>"; };
+		E0930BE31CBC7322002EBBFC /* easyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = easyButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +152,9 @@
 				832E71131CB32D7E00CEC5EB /* connect4board.png */,
 				832E71111CB2E89300CEC5EB /* connect4.png */,
 				832E71151CB32DFD00CEC5EB /* connect4red.png */,
+				E0930BE11CBC7322002EBBFC /* hardButton.png */,
+				E0930BE21CBC7322002EBBFC /* mediumButton.png */,
+				E0930BE31CBC7322002EBBFC /* easyButton.png */,
 				832E70FE1CB2D2B100CEC5EB /* concave button.png */,
 				83441F271CBC2AAA00AD6494 /* title.png */,
 				83BCACB41CA1FF5F00378E8E /* main.m */,
@@ -277,10 +286,13 @@
 				832E71141CB32D7E00CEC5EB /* connect4board.png in Resources */,
 				832E71181CB32E0400CEC5EB /* connect4black.png in Resources */,
 				83BCACBD1CA1FF5F00378E8E /* GameScene.sks in Resources */,
+				E0930BE61CBC7322002EBBFC /* easyButton.png in Resources */,
 				83BCACC81CA1FF5F00378E8E /* LaunchScreen.storyboard in Resources */,
 				83441F281CBC2AAA00AD6494 /* title.png in Resources */,
+				E0930BE41CBC7322002EBBFC /* hardButton.png in Resources */,
 				832E71161CB32DFD00CEC5EB /* connect4red.png in Resources */,
 				83BCACC51CA1FF5F00378E8E /* Assets.xcassets in Resources */,
+				E0930BE51CBC7322002EBBFC /* mediumButton.png in Resources */,
 				832E71121CB2E89300CEC5EB /* connect4.png in Resources */,
 				832E71011CB2D2B100CEC5EB /* concave button.png in Resources */,
 				83BCACC31CA1FF5F00378E8E /* Main.storyboard in Resources */,

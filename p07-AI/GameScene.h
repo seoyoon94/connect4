@@ -27,4 +27,5 @@
 -(void) gameOverAlert:(int)currentColor;
 
 @property GameViewController *viewController;
+@property SKView *selfView;
 @end

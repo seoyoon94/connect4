@@ -10,31 +10,44 @@
 
 @implementation GameScene
 @synthesize viewController;
+@synthesize selfView;
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
     screenWidth = view.bounds.size.width;
     screenHeight = view.bounds.size.height;
+    selfView = self.view;
     
-    SKScene *menuScreen = [self initMenuScreen:view];
+    SKScene *menuScreen = [self initMenuScreen];
     [self.view presentScene:menuScreen];
+//    [self.view presentScene:[self initGameBoard]];
 }
 
--(SKScene *) initMenuScreen:(SKView *)view{
-    SKScene *scene = [[SKScene alloc] initWithSize:view.frame.size];
+-(SKScene *) initMenuScreen{
+    SKScene *scene = [[SKScene alloc] initWithSize:selfView.frame.size];
     scene.backgroundColor = [UIColor blackColor];
     SKSpriteNode *title = [[SKSpriteNode alloc] initWithImageNamed:@"title.png"];
-    title.size = CGSizeMake(view.frame.size.width, title.size.height);
-    title.position = CGPointMake(title.size.width / 2, screenHeight - title.size.height);
+    title.size = CGSizeMake(selfView.frame.size.width, title.size.height);
+    title.position = CGPointMake(title.size.width / 2, 2 * screenHeight / 3 + title.size.height);
     [scene addChild:title];
     
-    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 200, 200)];
-    [playButton setTitle:@"Play" forState:UIControlStateNormal];
-    [scene.view addSubview:playButton];
+    SKSpriteNode *easyButton = [SKSpriteNode spriteNodeWithImageNamed:@"easyButton.png"];
+    easyButton.size = CGSizeMake(selfView.frame.size.width / 2 * 3/4, selfView.frame.size.height / 10 * 3/4);
+    easyButton.position = CGPointMake(selfView.frame.size.width / 2, title.position.y - 2 * easyButton.size.height);
+    easyButton.name = @"easyButton";
+    [scene addChild:easyButton];
     
-    UIButton *exitButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 200)];
-    [exitButton setTitle:@"Exit" forState:UIControlStateNormal];
-    [scene.view addSubview:exitButton];
+    SKSpriteNode *mediumButton = [SKSpriteNode spriteNodeWithImageNamed:@"mediumButton.png"];
+    mediumButton.position = CGPointMake(selfView.frame.size.width / 2, easyButton.position.y - 1.5 * easyButton.size.height);
+    mediumButton.size = easyButton.size;
+    mediumButton.name = @"mediumButton";
+    [scene addChild:mediumButton];
+    
+    SKSpriteNode *hardButton = [SKSpriteNode spriteNodeWithImageNamed:@"hardButton.png"];
+    hardButton.position = CGPointMake(selfView.frame.size.width / 2, mediumButton.position.y -  1.5 * easyButton.size.height);
+    hardButton.size = easyButton.size;
+    hardButton.name = @"hardButton";
+    [scene addChild:hardButton];
     
 //    UIButton *easyButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 200)];
 //    [easyButton setTitle:@"Easy" forState:UIControlStateNormal];
@@ -51,8 +64,8 @@
     return scene;
 }
 
--(SKScene *) initGameBoard:(SKView *)view{
-    SKScene *scene = [[SKScene alloc] initWithSize:view.frame.size];
+-(SKScene *) initGameBoard{
+    SKScene *scene = [[SKScene alloc] initWithSize:selfView.frame.size];
     numColumns = 7;
     numRows = 6;
     scene.backgroundColor = [SKColor blackColor];
